@@ -6,16 +6,20 @@
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
-The ideal JS development environment. Write your JS in the latest ES syntax,
-then serve compiled JS specific to the browser. In other words,
-if your code as generators, it compiles your JS to ES6 using [regenerator](https://github.com/facebook/regenerator),
-otherwise it just serves it.
+The ideal JS development environment that'll make writing JS actually fun.
+Write your JS in the latest ES syntax,
+then serve compiled JS specific to the browser.
+If your code as generators,
+it compiles your JS to ES6 using [regenerator](https://github.com/facebook/regenerator),
+otherwise it just serves it as is.
 
 The end goal of this project is to create a frontend flow where:
 
 - Dependencies are written with ES6 modules or HTML imports
 - Files are SPDY pushed to the client
 - If JS uses an unsupported feature for the browser, it will be transpiled down
+
+There's no build step to transpile your JS or a deploy step to create builds for every supported platform.
 
 Features:
 
@@ -47,6 +51,7 @@ Per-file `lru` cache options. Defaults to:
 - `maxAge` - `Infinity`
 
 These cache `useragent -> transforms` lookups per instance.
+Each cached object is pretty low memory since they are simply references to objects already in memory.
 
 ### var ecstacy = new Ecstacy(js, [map])
 

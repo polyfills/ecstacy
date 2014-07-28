@@ -1,6 +1,6 @@
 {
   "name": "ecstacy",
-  "description": "",
+  "description": "transpile JS based user agents ",
   "version": "0.0.0",
   "author": {
     "name": "Jonathan Ong",
