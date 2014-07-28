@@ -1,7 +1,7 @@
 {
   "name": "ecstacy",
   "description": "transpile JS based on user agents ",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -15,18 +15,13 @@
     "lru-cache": "2",
     "uglify-js": "2",
     "strip-comments": "0",
-
     "mkdirp": "0",
     "rimraf": "2",
-
     "source-map": "0",
     "convert-source-map": "0",
-
     "useragent": "2",
     "semver": "3",
-
     "recast": "0",
-
     "regenerator": "0",
     "es6-class": "0",
     "es6-arrow-function": "0",
@@ -51,5 +46,7 @@
     "es"
   ],
   "main": "lib",
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ]
 }
