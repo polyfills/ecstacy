@@ -15,6 +15,7 @@
     "lru-cache": "2",
     "uglify-js": "2",
     "strip-comments": "0",
+    "polyfills-db": "0",
     "mkdirp": "0",
     "rimraf": "2",
     "source-map": "0",
@@ -36,7 +37,7 @@
     "istanbul": "0"
   },
   "scripts": {
-    "test": "mocha --reporter spec",
+    "test": "mocha --reporter spec --bail",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot"
   },
