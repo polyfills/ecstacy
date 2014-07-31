@@ -9,10 +9,10 @@ Ecstacy.clean()
 
 var ff30mobile = 'Mozilla/5.0 (Android; Mobile; rv:30.0) Gecko/30.0 Firefox/30.0'
 
-describe('ecstacy(code, map)', function () {
+describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
     describe('arrows.js', function () {
-      var ecstacy = Ecstacy(fixture('arrow'))
+      var ecstacy = Ecstacy.js(fixture('arrow'))
       var data
 
       it('.then( data => )', function () {
@@ -40,7 +40,7 @@ describe('ecstacy(code, map)', function () {
     })
 
     describe('es5', function () {
-      var ecstacy = Ecstacy(fixture('es5'))
+      var ecstacy = Ecstacy.js(fixture('es5'))
       var data
 
       it('.then( data => )', function () {
@@ -68,7 +68,7 @@ describe('ecstacy(code, map)', function () {
   })
 })
 
-describe('Features', function () {
+describe('Ecstacy.js Features', function () {
   describe('class', function () {
 
   })
@@ -79,7 +79,7 @@ describe('Features', function () {
 
   describe('generators', function () {
     var code = fixture('generators')
-    var ecstacy = Ecstacy(code)
+    var ecstacy = Ecstacy.js(code)
     var data
 
     describe('.build()', function () {
