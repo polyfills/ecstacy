@@ -6,26 +6,36 @@
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
-The ideal JS development environment that'll make writing JS actually fun.
-Write your JS in the latest ES syntax,
-then serve compiled JS specific to the browser.
-If your code as generators,
-it compiles your JS to ES6 using [regenerator](https://github.com/facebook/regenerator),
-otherwise it just serves it as is.
+The perfect middleware between your static file server and the browser.
+Minifies, compresses, and caches files served to the client.
+If it's JS or CSS, it also transpiles unsupported features of the target browser.
+You may also use this in your build process to create browser-specific builds.
+It's [traceur](https://github.com/google/traceur-compiler) and [myth](http://github.com/segmentio/myth) on steroids.
 
-The end goal of this project is to create a frontend flow where:
+The goal of this project is to create a frontend flow where:
 
-- Dependencies are written with ES6 modules or HTML imports
-- Files are SPDY pushed to the client
-- If JS uses an unsupported feature for the browser, it will be transpiled down
+- JS, CSS, and HTML are written using the latest specifications (ES6, HTML imports, etc.)
+- The server resolves the dependencies tree
+- The server uses Ecstacy to transpile each file according to the target client
+- The server uses Ecstacy to minify, compress, and cache each file
+- The server SPDY pushes the files to the client
 
-There's no build step to transpile your JS or a deploy step to create builds for every supported platform.
+Combined with [polyfills](https://github.com/polyfills/polyfills),
+you can use most of the latest features of browsers with relative ease.
+
+There's no:
+
+- Build step to transpile your JS/CSS
+- Build step to concatenate your assets
+- Deploy step to create builds for every supported platform
+- Very little difference between the development and production environments
 
 Features:
 
-- Transpiles, minifies, and gzips all the JS and caches them
+- Currently only supports JS, but will support CSS, HTML, etc.
 - Supports source maps, even inlined ones
-- Last-Modified and ETag header support
+- Last-Modified and ETag (sha256 sum) header support
+- Globally caches based on sha256 sums
 
 ## API
 
@@ -53,29 +63,71 @@ Per-file `lru` cache options. Defaults to:
 These cache `useragent -> transforms` lookups per instance.
 Each cached object is pretty low memory since they are simply references to objects already in memory.
 
-### var ecstacy = new Ecstacy(js, [map])
+### Ecstacy
 
-Create a new instance based on `js` with an optional source `map`.
-Inline source maps are also supported.
+All `Ecstacy` constructors have the following API:
 
-Some public properties:
+#### var ecstacy = new Ecstacy(options)
 
-- `.code` - the JS without source maps
-- `.map` - the source map, if any
-- `.hash` - the `sha256` sum of the JS
+Create a new instance. Some options are:
 
-### ecstacy.build(useragent).then( data => )
+- `name` - the name of the file, specifically for source maps
+- `map` - the source map, if any
 
-Transpiles the JS and returns metadata on them.
+### ecstacy.build(agents).then( data => )
 
-- `name` - the name of the build
+"Builds" a version of the file according to `agents`.
+`agents` is simply passed tp [polyfills-db](https://github.com/polyfills/db).
+`data` is an object with the following properties:
+
+- `name` - the name of the file of the build
 - `date` - the date this build was created for `Last-Modified` headers
 - `hash` - a `sha256` sha sum of the JS file in `hex` encoding for `ETag` headers
 - `transforms[]` - an array of all the transform names used
 - `length[extension]` - the byte size of each build for `Content-Length` headers
 
-If no transforms were used, then `name === hash` and `hash === ecstacy.hash`.
-The possible extensions are:
+### ecstacy.read(name, extension, encoding).then( buf => )
+
+Read a file by its `data.name` and `extension`.
+Returns a `Buffer`, so you need to `.toString()` it yourself.
+
+```js
+var ecstacy = Ecstacy(code)
+ecstacy.build(useragent).then(function (data) {
+  return ecstacy.read(data.name, '.js', 'utf8')
+}).then(function (js) {
+
+})
+```
+
+You may want to serve the smallest of `data.length['.min.js.gz']`
+and `data.length['.min.js']` if you like to over-optimize.
+You also probably don't need to stringify the buffer to send it to the client.
+
+### ecstacy.minify(name).then( => )
+
+Minify the asset and add its content length to `data.length`.
+
+### ecstacy.gzip(name, ext).then( => )
+
+Minify an already existing file by its name and extension,
+and add its content length to `data.length`.
+
+## JS
+
+### var ecstacy = new Ecstacy.js(options)
+
+Some additional options are:
+
+- `code` - the JS code
+
+#### ecstacy.build(agents).then( data => )
+
+Some additional fields:
+
+- `transforms[]` - an array of all the transform names used
+
+All the possible extensions:
 
 - `.json` - the returns data
 - `.js`
@@ -87,35 +139,10 @@ The possible extensions are:
 - `.min.js.map`
 - `.min.js.map.gz`
 
-### ecstacy.read(name, extension).then( buf => )
-
-Read a file by its `data.name` and `extension`.
-Returns a `Buffer`, so you need to `.toString()` it yourself.
-
-```js
-var ecstacy = Ecstacy(code)
-ecstacy.build(useragent).then(function (data) {
-  return ecstacy.read(data.name, '.min.js.gz')
-}).then(function (buf) {
-  return buf.toString()
-})
-```
-
-You may want to serve the smallest of `data.length['.min.js.gz']`
-and `data.length['.min.js']` if you like to over-optimize.
-You also probably don't need to stringify the buffer to send it to the client.
-
-### ecstacy.use(transform)
-
-Use a custom transform in additional to the included ones.
-
 ## Notes
 
-- UglifyJS currently does not support ES6 syntax, so JS with ES6 syntax
-  will not be minified. If not minified, `data.length['min.js']` will be `0`.
-- Runtimes for any transforms are __not included__.
-  Still need to figure out a good story for this.
-- Source maps are __not tested__. Please add tests!
+- UglifyJS currently does not support ES6 syntax.
+- Source maps are __not currently tested__.
 
 [npm-image]: https://img.shields.io/npm/v/ecstacy.svg?style=flat
 [npm-url]: https://npmjs.org/package/ecstacy
