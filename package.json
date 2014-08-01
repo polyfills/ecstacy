@@ -12,7 +12,8 @@
   "repository": "polyfills/ecstacy",
   "dependencies": {
     "mz": "1",
-    "flatten": "0",
+    "debug": "*",
+    "lazyrequire": "1",
     "lru-cache": "2",
     "uglify-js": "2",
     "strip-comments": "0",
@@ -21,8 +22,6 @@
     "rimraf": "2",
     "apply-source-map": "1",
     "convert-source-map": "0",
-    "useragent": "2",
-    "semver": "3",
     "recast": "0",
     "regenerator": "0",
     "es6-class": "0",

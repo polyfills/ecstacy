@@ -12,7 +12,10 @@ var ff30mobile = 'Mozilla/5.0 (Android; Mobile; rv:30.0) Gecko/30.0 Firefox/30.0
 describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
     describe('arrows.js', function () {
-      var ecstacy = Ecstacy.js(fixture('arrow'))
+      var ecstacy = Ecstacy.js({
+        name: 'arrow',
+        code: fixture('arrow')
+      })
       var data
 
       it('.then( data => )', function () {
@@ -31,16 +34,23 @@ describe('Ecstacy.js(code, map)', function () {
       })
 
       it('.read(name, .min.js)', function () {
-        return ecstacy.read(data.name, '.min.js')
+        return ecstacy.minify(data.name).then(function () {
+          return ecstacy.read(data.name, '.min.js')
+        })
       })
 
       it('.read(name, .min.js.gz)', function () {
-        return ecstacy.read(data.name, '.min.js.gz')
+        return ecstacy.gzip(data.name, '.min.js').then(function () {
+          return ecstacy.read(data.name, '.min.js.gz')
+        })
       })
     })
 
     describe('es5', function () {
-      var ecstacy = Ecstacy.js(fixture('es5'))
+      var ecstacy = Ecstacy.js({
+        name: 'es5',
+        code: fixture('es5'),
+      })
       var data
 
       it('.then( data => )', function () {
@@ -58,11 +68,15 @@ describe('Ecstacy.js(code, map)', function () {
       })
 
       it('.read(name, .min.js)', function () {
-        return ecstacy.read(data.name, '.min.js')
+        return ecstacy.minify(data.name).then(function () {
+          return ecstacy.read(data.name, '.min.js')
+        })
       })
 
       it('.read(name, .min.js.gz)', function () {
-        return ecstacy.read(data.name, '.min.js.gz')
+        return ecstacy.gzip(data.name, '.min.js').then(function () {
+          return ecstacy.read(data.name, '.min.js.gz')
+        })
       })
     })
   })
@@ -79,7 +93,10 @@ describe('Ecstacy.js Features', function () {
 
   describe('generators', function () {
     var code = fixture('generators')
-    var ecstacy = Ecstacy.js(code)
+    var ecstacy = Ecstacy.js({
+      name: 'generators',
+      code: code
+    })
     var data
 
     describe('.build()', function () {
