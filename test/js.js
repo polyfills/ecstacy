@@ -81,6 +81,13 @@ describe('Ecstacy.js(code, map)', function () {
           return ecstacy.read(data.name, '.min.js.gz')
         })
       })
+
+      it('.stream(name, .min.js.gz)', function (done) {
+        var stream = ecstacy.stream(data.name, '.min.js.gz')
+        stream.resume()
+        stream.once('end', done)
+        stream.once('error', done)
+      })
     })
 
     describe('es5', function () {

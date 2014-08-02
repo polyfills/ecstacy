@@ -104,6 +104,11 @@ You may want to serve the smallest of `data.length['.min.js.gz']`
 and `data.length['.min.js']` if you like to over-optimize.
 You also probably don't need to stringify the buffer to send it to the client.
 
+### ecstacy.stream(name, extension)
+
+Create a read stream for a file and extension instead of buffering it.
+Useful when serving files to the client.
+
 ### ecstacy.minify(name).then( => )
 
 Minify the asset and add its content length to `data.length`.
