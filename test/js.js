@@ -11,6 +11,28 @@ var ff30mobile = 'Mozilla/5.0 (Android; Mobile; rv:30.0) Gecko/30.0 Firefox/30.0
 
 describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
+    describe('with no transforms', function () {
+      var ecstacy
+
+      it('should still build', function () {
+        ecstacy = Ecstacy.js({
+          name: 'arrow',
+          code: fixture('arrow'),
+          transforms: [],
+        })
+
+        return ecstacy.build().then(function (data) {
+          assert.equal(data.hash, ecstacy.hash)
+        })
+      })
+
+      it('should build again', function () {
+        return ecstacy.build().then(function (data) {
+          assert.equal(data.hash, ecstacy.hash)
+        })
+      })
+    })
+
     describe('arrows.js', function () {
       var ecstacy = Ecstacy.js({
         name: 'arrow',
@@ -29,7 +51,22 @@ describe('Ecstacy.js(code, map)', function () {
         })
       })
 
+      it('.then( data => ) again', function () {
+        return ecstacy.build().then(function (_data) {
+          assert(data = _data)
+          assert(data.name)
+          assert(data.date)
+          assert(data.hash)
+          assert(data.length)
+          assert(data.length['.js'])
+        })
+      })
+
       it('.read(name, .js)', function () {
+        return ecstacy.read(data.name, '.js')
+      })
+
+      it('.read(name, .js) again', function () {
         return ecstacy.read(data.name, '.js')
       })
 
