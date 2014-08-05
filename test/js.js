@@ -1,14 +1,4 @@
 
-var fs = require('fs')
-var path = require('path')
-var assert = require('assert')
-var rimraf = require('rimraf')
-
-var Ecstacy = require('..')
-Ecstacy.clean()
-
-var ff30mobile = 'Mozilla/5.0 (Android; Mobile; rv:30.0) Gecko/30.0 Firefox/30.0'
-
 describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
     describe('with no transforms', function () {
