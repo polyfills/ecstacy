@@ -87,6 +87,32 @@ describe('Ecstacy.css(code, map)', function () {
         stream.once('error', done)
       })
     })
+
+    describe('flex.css', function () {
+      var ecstacy = Ecstacy.css({
+        name: 'flex',
+        code: fixture('flex'),
+        transforms: [transforms.autoprefixer],
+      })
+      var data
+
+      it('.then( data => )', function () {
+        return ecstacy.build().then(function (_data) {
+          assert(data = _data)
+          assert(data.name)
+          assert(data.date)
+          assert(data.hash)
+          assert(data.length)
+          assert(data.length['.css'])
+        })
+      })
+
+      it('.read(name, .css)', function () {
+        return ecstacy.read(data.name, '.css', 'utf8').then(function (css) {
+          assert(~css.indexOf('-webkit'))
+        })
+      })
+    })
   })
 })
 
