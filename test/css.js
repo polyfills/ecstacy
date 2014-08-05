@@ -29,8 +29,8 @@ describe('Ecstacy.css(code, map)', function () {
       var ecstacy = Ecstacy.css({
         name: 'calc',
         code: fixture('calc'),
-        transforms: [transforms.calc],
       })
+      ecstacy.use('calc')
       var data
 
       it('.then( data => )', function () {
