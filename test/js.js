@@ -72,7 +72,11 @@ describe('Ecstacy.js(code, map)', function () {
 
       it('.read(name, .min.js)', function () {
         return ecstacy.minify(data.name).then(function () {
-          return ecstacy.read(data.name, '.min.js')
+          return ecstacy.read(data.name, '.min.js', 'utf8')
+        }).then(function (js) {
+          new Function(js)
+          assert(!~js.indexOf('undefined'))
+          assert(!~js.indexOf('sourceMappingURL'))
         })
       })
 

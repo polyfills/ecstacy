@@ -15,13 +15,13 @@
     "debug": "*",
     "lazyrequire": "1",
     "lru-cache": "2",
-    "uglify-js": "2",
     "strip-comments": "0",
     "polyfills-db": "0",
     "mkdirp": "0",
     "rimraf": "2",
     "apply-source-map": "1",
     "convert-source-map": "0",
+    "uglify-js": "2",
     "recast": "0",
     "regenerator": "0",
     "es6-class": "0",
@@ -30,7 +30,11 @@
     "es6-rest-params": "0",
     "es6-default-params": "0",
     "es6-spread": "0",
-    "es6-comprehensions": "0"
+    "es6-comprehensions": "0",
+    "clean-css": "2",
+    "postcss": "2",
+    "autoprefixer": "2",
+    "postcss-calc": "1"
   },
   "devDependencies": {
     "mocha": "1",
