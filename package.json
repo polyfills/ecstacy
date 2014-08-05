@@ -1,7 +1,7 @@
 {
   "name": "ecstacy",
   "description": "transpile JS based on user agents ",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
