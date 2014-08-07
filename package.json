@@ -23,6 +23,7 @@
     "convert-source-map": "0",
     "uglify-js": "2",
     "recast": "0",
+    "esprima": "*",
     "regenerator": "0",
     "es6-class": "0",
     "es6-arrow-function": "0",
@@ -37,6 +38,7 @@
     "postcss-calc": "1"
   },
   "devDependencies": {
+    "esprima": "git://github.com/esnext/esprima#harmony-esnext",
     "mocha": "1",
     "istanbul": "0"
   },
