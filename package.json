@@ -19,6 +19,7 @@
     "polyfills-db": "0",
     "mkdirp": "0",
     "rimraf": "2",
+    "memorizer": "1",
     "apply-source-map": "1",
     "convert-source-map": "0",
     "uglify-js": "2",
