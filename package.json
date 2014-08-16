@@ -36,7 +36,10 @@
     "clean-css": "2",
     "postcss": "2",
     "autoprefixer": "2",
-    "postcss-calc": "2"
+    "postcss-calc": "2",
+    "postcss-color": "1",
+    "postcss-custom-media": "1",
+    "postcss-custom-properties": "0"
   },
   "devDependencies": {
     "esprima": "git://github.com/esnext/esprima#harmony-esnext",
