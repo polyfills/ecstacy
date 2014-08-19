@@ -14,6 +14,7 @@ describe('.sourcemaps = false', function () {
           name: 'arrow',
           code: fixture('arrow.js'),
           sourcemaps: false,
+          transforms: true,
         })
       })
 

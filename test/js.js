@@ -26,7 +26,8 @@ describe('Ecstacy.js(code, map)', function () {
     describe('arrows.js', function () {
       var ecstacy = Ecstacy.js({
         name: 'arrow',
-        code: fixture('arrow')
+        code: fixture('arrow'),
+        transforms: true,
       })
       var data
 
@@ -92,6 +93,7 @@ describe('Ecstacy.js(code, map)', function () {
       var ecstacy = Ecstacy.js({
         name: 'es5',
         code: fixture('es5'),
+        transforms: true,
       })
       var data
 
@@ -137,7 +139,8 @@ describe('Ecstacy.js Features', function () {
     var code = fixture('generators')
     var ecstacy = Ecstacy.js({
       name: 'generators',
-      code: code
+      code: code,
+      transforms: true,
     })
     var data
 

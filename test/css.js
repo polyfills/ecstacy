@@ -10,7 +10,6 @@ describe('Ecstacy.css(code, map)', function () {
         ecstacy = Ecstacy.css({
           name: 'flex',
           code: fixture('flex'),
-          transforms: [],
         })
 
         return ecstacy.build().then(function (data) {
@@ -29,6 +28,7 @@ describe('Ecstacy.css(code, map)', function () {
       var ecstacy = Ecstacy.css({
         name: 'calc',
         code: fixture('calc'),
+        transforms: true,
       })
       ecstacy.use('calc')
       var data
