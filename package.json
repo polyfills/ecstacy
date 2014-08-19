@@ -43,10 +43,12 @@
   },
   "devDependencies": {
     "esprima": "git://github.com/esnext/esprima#harmony-esnext",
+    "bluebird": "2",
     "mocha": "1",
     "istanbul": "0"
   },
   "scripts": {
+    "bench": "DEBUG=*:profile node benchmarks/mocha",
     "test": "mocha --reporter spec --bail test/index.js",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot test/index.js",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot test/index.js"
