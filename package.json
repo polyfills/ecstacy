@@ -16,7 +16,7 @@
     "debug": "*",
     "lazyrequire": "1",
     "lru-cache": "2",
-    "polyfills-db": "0",
+    "polyfills-db": "1",
     "mkdirp": "0",
     "rimraf": "2",
     "memorizer": "1",
