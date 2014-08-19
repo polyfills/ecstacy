@@ -118,6 +118,18 @@ Minify the asset and add its content length to `data.length`.
 Minify an already existing file by its name and extension,
 and add its content length to `data.length`.
 
+### ecstacy.sourcemaps = <Boolean>
+
+By default, source maps are always enabled.
+However, there is a performance penalty when using source maps.
+You may opt out of source maps by setting `ecstacy.sourcemaps = false`
+on every `Ecstacy` instance.
+
+Switching `.sourcemaps` between `true` or `false` is not supported
+as files will be cached differently every time.
+Everytime you switch `.sourcemaps`' value,
+you must run `Ecstacy.clean()` to clean the cache.
+
 ## JS
 
 ### var ecstacy = new Ecstacy.js(options)

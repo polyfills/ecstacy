@@ -60,6 +60,10 @@ describe('Ecstacy.js(code, map)', function () {
         return ecstacy.read(data.name, '.js')
       })
 
+      it('.read(name, .js.map)', function () {
+        return ecstacy.read(data.name, '.js.map')
+      })
+
       it('.read(name, .min.js)', function () {
         return ecstacy.minify(data.name).then(function () {
           return ecstacy.read(data.name, '.min.js', 'utf8')

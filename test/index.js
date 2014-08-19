@@ -11,3 +11,4 @@ ff30mobile = 'Mozilla/5.0 (Android; Mobile; rv:30.0) Gecko/30.0 Firefox/30.0'
 
 require('./js')
 require('./css')
+require('./no-source-maps')

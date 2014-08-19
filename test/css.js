@@ -65,6 +65,10 @@ describe('Ecstacy.css(code, map)', function () {
         return ecstacy.read(data.name, '.css')
       })
 
+      it('.read(name, .css.map)', function () {
+        return ecstacy.read(data.name, '.css.map')
+      })
+
       it('.read(name, .min.css)', function () {
         return ecstacy.minify(data.name).then(function () {
           return ecstacy.read(data.name, '.min.css', 'utf8')
