@@ -11,6 +11,7 @@
   "license": "MIT",
   "repository": "polyfills/ecstacy",
   "dependencies": {
+    "native-or-bluebird": "1",
     "mz": "1",
     "debug": "*",
     "lazyrequire": "1",
