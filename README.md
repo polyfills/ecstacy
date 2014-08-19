@@ -2,8 +2,11 @@
 # ecstacy
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Dependency Status][david-image]][david-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 [![Gittip][gittip-image]][gittip-url]
 
 The perfect middleware between your static file server and the browser.
@@ -161,11 +164,19 @@ All the possible extensions:
 - UglifyJS currently does not support ES6 syntax.
 - Source maps are __not currently tested__.
 
-[npm-image]: https://img.shields.io/npm/v/ecstacy.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/ecstacy.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/ecstacy
-[travis-image]: https://img.shields.io/travis/polyfills/ecstacy.svg?style=flat
+[github-tag]: http://img.shields.io/github/tag/polyfills/ecstacy.svg?style=flat-square
+[github-url]: https://github.com/polyfills/ecstacy/tags
+[travis-image]: https://img.shields.io/travis/polyfills/ecstacy.svg?style=flat-square
 [travis-url]: https://travis-ci.org/polyfills/ecstacy
-[coveralls-image]: https://img.shields.io/coveralls/polyfills/ecstacy.svg?style=flat
+[coveralls-image]: https://img.shields.io/coveralls/polyfills/ecstacy.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/polyfills/ecstacy?branch=master
-[gittip-image]: https://img.shields.io/gittip/jonathanong.svg?style=flat
+[david-image]: http://img.shields.io/david/polyfills/ecstacy.svg?style=flat-square
+[david-url]: https://david-dm.org/polyfills/ecstacy
+[license-image]: http://img.shields.io/npm/l/ecstacy.svg?style=flat-square
+[license-url]: LICENSE
+[downloads-image]: http://img.shields.io/npm/dm/ecstacy.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/ecstacy
+[gittip-image]: https://img.shields.io/gittip/jonathanong.svg?style=flat-square
 [gittip-url]: https://www.gittip.com/jonathanong/
