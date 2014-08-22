@@ -34,7 +34,7 @@
     "es6-spread": "0",
     "es6-comprehensions": "0",
     "postcss": "2",
-    "autoprefixer": "2",
+    "autoprefixer-core": "3",
     "postcss-calc": "2",
     "postcss-color": "1",
     "postcss-custom-media": "1",
