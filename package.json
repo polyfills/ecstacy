@@ -33,6 +33,7 @@
     "es6-default-params": "0",
     "es6-spread": "0",
     "es6-comprehensions": "0",
+    "es6-destructuring": "0",
     "postcss": "2",
     "autoprefixer-core": "3",
     "postcss-calc": "2",
