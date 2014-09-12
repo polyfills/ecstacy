@@ -49,6 +49,32 @@ describe('Ecstacy.js(code, map)', function () {
       })
     })
 
+    describe('destruct-stuff.js', function () {
+      var ecstacy = Ecstacy.js({
+        name: 'destruct-stuff',
+        code: fixture('destruct-stuff'),
+        transforms: true
+      })
+      var data
+
+      it('.then( data => )', function () {
+        return ecstacy.build().then(function( _data) {
+          assert(data = _data)
+          assert(data.name)
+          assert(data.date)
+          assert(data.hash)
+          assert(data.length)
+          assert(data.length['.js'])
+        })
+      })
+
+      it('.read(name, .js)', function () {
+        return ecstacy.read(data.name, '.js', 'utf8').then(function (js) {
+          assert(!~js.indexOf('var [a, b]'))
+        })
+      })
+    })
+
     describe('arrows.js', function () {
       var ecstacy = Ecstacy.js({
         name: 'arrow',
