@@ -3,6 +3,25 @@ var transforms = require('polyfills-db').postcss.transform
 
 describe('Ecstacy.css(code, map)', function () {
   describe('.build()', function () {
+    describe('an empty file', function () {
+      // postcss adds a space - whatever
+      var ecstacy
+
+      it('should still build', function () {
+        ecstacy = Ecstacy.css({
+          name: 'fleempty',
+          code: fixture('empty'),
+          transforms: true,
+        })
+
+        return ecstacy.build()
+      })
+
+      it('should build again', function () {
+        return ecstacy.build()
+      })
+    })
+
     describe('with no transforms', function () {
       var ecstacy
 

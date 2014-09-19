@@ -1,6 +1,28 @@
 
 describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
+    describe('with an empty file', function () {
+      var ecstacy
+
+      it('should still build', function () {
+        ecstacy = Ecstacy.js({
+          name: 'empty',
+          code: fixture('empty'),
+          transforms: true,
+        })
+
+        return ecstacy.build().then(function (data) {
+          assert.equal(data.hash, ecstacy.hash)
+        })
+      })
+
+      it('should build again', function () {
+        return ecstacy.build().then(function (data) {
+          assert.equal(data.hash, ecstacy.hash)
+        })
+      })
+    })
+
     describe('with no transforms', function () {
       var ecstacy
 
