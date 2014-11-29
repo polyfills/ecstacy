@@ -27,6 +27,7 @@
     "es6-rest-params": "0",
     "es6-spread": "0",
     "es6-templates": "0",
+    "es7-async-fn": "1",
     "esprima-fb": "*",
     "lazyrequire": "1",
     "lru-cache": "2",
