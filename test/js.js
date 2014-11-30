@@ -138,29 +138,6 @@ describe('Ecstacy.js(code, map)', function () {
       it('.read(name, .js.map)', function () {
         return ecstacy.read(data.name, '.js.map')
       })
-
-      it('.read(name, .min.js)', function () {
-        return ecstacy.minify(data.name).then(function () {
-          return ecstacy.read(data.name, '.min.js', 'utf8')
-        }).then(function (js) {
-          new Function(js)
-          assert(!~js.indexOf('undefined'))
-          assert(!~js.indexOf('sourceMappingURL'))
-        })
-      })
-
-      it('.read(name, .min.js.gz)', function () {
-        return ecstacy.gzip(data.name, '.min.js').then(function () {
-          return ecstacy.read(data.name, '.min.js.gz')
-        })
-      })
-
-      it('.stream(name, .min.js.gz)', function (done) {
-        var stream = ecstacy.stream(data.name, '.min.js.gz')
-        stream.resume()
-        stream.once('end', done)
-        stream.once('error', done)
-      })
     })
 
     describe('es5', function () {
@@ -183,18 +160,6 @@ describe('Ecstacy.js(code, map)', function () {
 
       it('.read(name, .js)', function () {
         return ecstacy.read(data.name, '.js')
-      })
-
-      it('.read(name, .min.js)', function () {
-        return ecstacy.minify(data.name).then(function () {
-          return ecstacy.read(data.name, '.min.js')
-        })
-      })
-
-      it('.read(name, .min.js.gz)', function () {
-        return ecstacy.gzip(data.name, '.min.js').then(function () {
-          return ecstacy.read(data.name, '.min.js.gz')
-        })
       })
     })
   })

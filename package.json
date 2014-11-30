@@ -13,7 +13,6 @@
   "dependencies": {
     "apply-source-map": "1",
     "autoprefixer-core": "4",
-    "clean-css": "2",
     "convert-source-map": "0",
     "debug": "*",
     "es6-arrow-function": "0",
@@ -48,8 +47,7 @@
     "recast": "0",
     "regenerator": "0",
     "regexpu": "0",
-    "rimraf": "2",
-    "uglify-js": "2"
+    "rimraf": "2"
   },
   "devDependencies": {
     "bluebird": "2",
