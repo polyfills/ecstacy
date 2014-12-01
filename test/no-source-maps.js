@@ -21,33 +21,27 @@ describe('.sourcemaps = false', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.length['.js'])
-          assert(!data.length['.js.map'])
+          assert(data.hash)
+          assert(data.code)
+          assert(!data.map)
         })
       })
 
       it('.then( data => ) again', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.length['.js'])
-          assert(!data.length['.js.map'])
+          assert(data.hash)
+          assert(data.code)
+          assert(!data.map)
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js')
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code)
       })
 
-      it('.read(name, .js) again', function () {
-        return ecstacy.read(data.name, '.js')
-      })
-
-      it('.read(name, .js.map)', function () {
-        return ecstacy.read(data.name, '.js.map').then(function () {
-          throw new Error('boom')
-        }).catch(function (err) {
-          assert.equal(err.code, 'ENOENT')
-        })
+      it('.read(data.code) again', function () {
+        return ecstacy.read(data.code)
       })
     })
   })
@@ -69,35 +63,29 @@ describe('.sourcemaps = false', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.length['.css'])
-          assert(!data.length['.css.map'])
+          assert(data.hash)
+          assert(data.code)
+          assert(!data.map)
         })
       })
 
       it('.then( data => ) again', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.length['.css'])
-          assert(!data.length['.css.map'])
+          assert(data.hash)
+          assert(data.code)
+          assert(!data.map)
         })
       })
 
-      it('.read(name, .css)', function () {
-        return ecstacy.read(data.name, '.css', 'utf8').then(function (css) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (css) {
           assert(!~css.indexOf('calc'))
         })
       })
 
-      it('.read(name, .css) again', function () {
-        return ecstacy.read(data.name, '.css')
-      })
-
-      it('.read(name, .css.map)', function () {
-        return ecstacy.read(data.name, '.css.map').then(function () {
-          throw new Error('boom')
-        }).catch(function (err) {
-          assert.equal(err.code, 'ENOENT')
-        })
+      it('.read(data.code) again', function () {
+        return ecstacy.read(data.code)
       })
     })
   })

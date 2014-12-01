@@ -31,15 +31,11 @@ describe('Ecstacy.css(code, map)', function () {
           code: fixture('flex'),
         })
 
-        return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
-        })
+        return ecstacy.build()
       })
 
       it('should build again', function () {
-        return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
-        })
+        return ecstacy.build()
       })
     })
 
@@ -55,37 +51,33 @@ describe('Ecstacy.css(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.css'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
       it('.then( data => ) again', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.css'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .css)', function () {
-        return ecstacy.read(data.name, '.css', 'utf8').then(function (css) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (css) {
           assert(!~css.indexOf('calc'))
         })
       })
 
-      it('.read(name, .css) again', function () {
-        return ecstacy.read(data.name, '.css')
+      it('.read(data.code) again', function () {
+        return ecstacy.read(data.code)
       })
 
-      it('.read(name, .css.map)', function () {
-        return ecstacy.read(data.name, '.css.map')
+      it('.read(data.map)', function () {
+        return ecstacy.read(data.map)
       })
     })
 
@@ -100,16 +92,14 @@ describe('Ecstacy.css(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.css'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .css)', function () {
-        return ecstacy.read(data.name, '.css', 'utf8').then(function (css) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (css) {
           assert(~css.indexOf('-webkit'))
         })
       })

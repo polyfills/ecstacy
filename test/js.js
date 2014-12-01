@@ -12,13 +12,17 @@ describe('Ecstacy.js(code, map)', function () {
         })
 
         return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
+          return ecstacy.read(data.code, 'utf8')
+        }).then(function (js) {
+          assert(!js)
         })
       })
 
       it('should build again', function () {
         return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
+          return ecstacy.read(data.code, 'utf8')
+        }).then(function (js) {
+          assert(!js)
         })
       })
     })
@@ -34,13 +38,17 @@ describe('Ecstacy.js(code, map)', function () {
         })
 
         return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
+          return ecstacy.read(data.code, 'utf8')
+        }).then(function (js) {
+          assert.equal(js, fixture('arrow'))
         })
       })
 
       it('should build again', function () {
         return ecstacy.build().then(function (data) {
-          assert.equal(data.hash, ecstacy.hash)
+          return ecstacy.read(data.code, 'utf8')
+        }).then(function (js) {
+          assert.equal(js, fixture('arrow'))
         })
       })
     })
@@ -56,16 +64,14 @@ describe('Ecstacy.js(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function( _data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.js'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js', 'utf8').then(function (js) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (js) {
           assert(!~js.indexOf('var [a, b]'))
         })
       })
@@ -82,16 +88,14 @@ describe('Ecstacy.js(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function( _data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.js'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js', 'utf8').then(function (js) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (js) {
           assert(!~js.indexOf('var [a, b]'))
         })
       })
@@ -108,35 +112,31 @@ describe('Ecstacy.js(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.js'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
       it('.then( data => ) again', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.name)
-          assert(data.date)
           assert(data.hash)
-          assert(data.length)
-          assert(data.length['.js'])
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js')
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code)
       })
 
-      it('.read(name, .js) again', function () {
-        return ecstacy.read(data.name, '.js')
+      it('.read(data.code) again', function () {
+        return ecstacy.read(data.code)
       })
 
-      it('.read(name, .js.map)', function () {
-        return ecstacy.read(data.name, '.js.map')
+      it('.read(data.map)', function () {
+        return ecstacy.read(data.map)
       })
     })
 
@@ -151,15 +151,14 @@ describe('Ecstacy.js(code, map)', function () {
       it('.then( data => )', function () {
         return ecstacy.build().then(function (_data) {
           assert(data = _data)
-          assert(data.date)
-          // assert.equal(data.hash, ecstacy.hash)
-          assert(data.length)
-          assert(data.length['.js'])
+          assert(data.hash)
+          assert(data.code)
+          assert(data.map)
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js')
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code)
       })
     })
   })
@@ -190,8 +189,8 @@ describe('Ecstacy.js Features', function () {
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js').then(function (js) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (js) {
           assert(!/\*/.test(js.toString()))
         })
       })
@@ -204,10 +203,17 @@ describe('Ecstacy.js Features', function () {
         })
       })
 
-      it('.read(name, .js)', function () {
-        return ecstacy.read(data.name, '.js').then(function (js) {
+      it('.read(data.code)', function () {
+        return ecstacy.read(data.code, 'utf8').then(function (js) {
           assert(/\*/.test(js.toString()))
         })
+      })
+
+      it('.stream(data.code)', function (done) {
+        var stream = ecstacy.stream(data.code)
+        stream.resume()
+        stream.on('error', done)
+        stream.once('end', done)
       })
     })
   })
