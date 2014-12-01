@@ -27,6 +27,7 @@ function withSourcemaps() {
   return Ecstacy.js({
     name: 'mocha1',
     code: mocha,
+    transforms: true,
   }).build().then(function () {
     profile('built mocha.js with sourcemaps')
   })
@@ -38,6 +39,7 @@ function withoutSourcemaps() {
     name: 'mocha2',
     code: mocha,
     sourcemaps: false,
+    transforms: true,
   }).build().then(function () {
     profile('built mocha.js without sourcemaps')
   })
