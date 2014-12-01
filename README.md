@@ -19,9 +19,8 @@ The goal of this project is to create a frontend flow where:
 
 - JS, CSS, and HTML are written using the latest specifications (ES6, HTML imports, etc.)
 - The server resolves the dependencies tree
-- The server uses Ecstacy to transpile each file according to the target client
-- The server uses Ecstacy to minify, compress, and cache each file
-- The server SPDY pushes the files to the client
+- The server uses Ecstacy to transpile each file according to the target client and caches
+- The server HTTP2 pushes the files to the client
 
 Combined with [polyfills](https://github.com/polyfills/polyfills),
 you can use most of the latest features of browsers with relative ease.
@@ -35,10 +34,9 @@ There's no:
 
 Features:
 
-- Currently only supports JS, but will support CSS, HTML, etc.
+- Supports CSS and JS
 - Supports source maps, even inlined ones
-- Last-Modified and ETag (sha256 sum) header support
-- Globally caches based on sha256 sums
+- Caching
 
 ## API
 
@@ -46,25 +44,18 @@ Features:
 var Ecstacy = require('ecstacy')
 ```
 
-### Ecstacy.folder
+### Builders
 
-The cache folder where all the transpiled JS, minified, and gzipped files are saved.
-This build folder is __global__, but because code is cached based on a
-`sha256` sum, there should not be any conflicts.
+There are two builders.
+
+- `Ecstacy.js`
+- `Ecstacy.css`
+
+Both inherit from `Ecstacy`, defined below.
 
 ### Ecstacy.clean()
 
 Delete the entire cache folder.
-
-### Ecstacy.cache = {}
-
-Per-file `lru` cache options. Defaults to:
-
-- `max` - `100`
-- `maxAge` - `Infinity`
-
-These cache `useragent -> transforms` lookups per instance.
-Each cached object is pretty low memory since they are simply references to objects already in memory.
 
 ### Ecstacy
 
@@ -75,6 +66,7 @@ All `Ecstacy` constructors have the following API:
 Create a new instance. Some options are:
 
 - `name` - the name of the file, specifically for source maps
+- `code` - source code
 - `map` - the source map, if any
 
 ### ecstacy.build(agents).then( data => )
@@ -83,86 +75,34 @@ Create a new instance. Some options are:
 `agents` is simply passed tp [polyfills-db](https://github.com/polyfills/db).
 `data` is an object with the following properties:
 
-- `name` - the name of the file of the build
-- `date` - the date this build was created for `Last-Modified` headers
-- `hash` - a `sha256` sha sum of the JS file in `hex` encoding for `ETag` headers
-- `transforms[]` - an array of all the transform names used
-- `length[extension]` - the byte size of each build for `Content-Length` headers
+- `hash` - the build hash
+- `code` - the filename for the code
+- `map` - the filename for the map
 
-### ecstacy.read(name, extension, encoding).then( buf => )
+### var filename = ecstacy.filename(name)
 
-Read a file by its `data.name` and `extension`.
+Get the absolute filename of a file.
+
+### ecstacy.read(name, encoding).then( buf => )
+
+Read a file by its name.
 Returns a `Buffer`, so you need to `.toString()` it yourself.
 
 ```js
-var ecstacy = Ecstacy(code)
+var ecstacy = Ecstacy.js({
+  code: 'var a = b;'
+})
 ecstacy.build(useragent).then(function (data) {
-  return ecstacy.read(data.name, '.js', 'utf8')
+  return ecstacy.read(data.code, 'utf8')
 }).then(function (js) {
 
 })
 ```
 
-You may want to serve the smallest of `data.length['.min.js.gz']`
-and `data.length['.min.js']` if you like to over-optimize.
-You also probably don't need to stringify the buffer to send it to the client.
-
-### ecstacy.stream(name, extension)
+### ecstacy.stream(name)
 
 Create a read stream for a file and extension instead of buffering it.
 Useful when serving files to the client.
-
-### ecstacy.minify(name).then( => )
-
-Minify the asset and add its content length to `data.length`.
-
-### ecstacy.gzip(name, ext).then( => )
-
-Minify an already existing file by its name and extension,
-and add its content length to `data.length`.
-
-### ecstacy.sourcemaps = <Boolean>
-
-By default, source maps are always enabled.
-However, there is a performance penalty when using source maps.
-You may opt out of source maps by setting `ecstacy.sourcemaps = false`
-on every `Ecstacy` instance.
-
-Switching `.sourcemaps` between `true` or `false` is not supported
-as files will be cached differently every time.
-Everytime you switch `.sourcemaps`' value,
-you must run `Ecstacy.clean()` to clean the cache.
-
-## JS
-
-### var ecstacy = new Ecstacy.js(options)
-
-Some additional options are:
-
-- `code` - the JS code
-
-#### ecstacy.build(agents).then( data => )
-
-Some additional fields:
-
-- `transforms[]` - an array of all the transform names used
-
-All the possible extensions:
-
-- `.json` - the returns data
-- `.js`
-- `.js.gz`
-- `.js.map`
-- `.js.map.gz`
-- `.min.js`
-- `.min.js.gz`
-- `.min.js.map`
-- `.min.js.map.gz`
-
-## Notes
-
-- UglifyJS currently does not support ES6 syntax.
-- Source maps are __not currently tested__.
 
 [npm-image]: https://img.shields.io/npm/v/ecstacy.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/ecstacy
