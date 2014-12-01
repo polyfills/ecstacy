@@ -34,7 +34,7 @@
     "mkdirp": "0",
     "mz": "1",
     "native-or-bluebird": "1",
-    "polyfills-db": "^1.16.1",
+    "polyfills-db": "^1.19.0",
     "postcss": "3",
     "postcss-calc": "3",
     "postcss-color": "1",

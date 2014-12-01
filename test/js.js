@@ -1,4 +1,21 @@
 
+describe('Ecstacy.js.prototype._defaultTransforms', function () {
+  it('([names...])', function () {
+    var names = ['arrowfn']
+    var transforms = Ecstacy.js.prototype._defaultTransforms(names)
+    assert(transforms.length === 1)
+  })
+
+  it('({ name: true })', function () {
+    var names = {
+      arrowfn: true,
+      gens: true,
+    }
+    var transforms = Ecstacy.js.prototype._defaultTransforms(names)
+    assert(transforms.length === 2)
+  })
+})
+
 describe('Ecstacy.js(code, map)', function () {
   describe('.build()', function () {
     describe('with an empty file', function () {
@@ -236,6 +253,33 @@ describe('Ecstacy.js Features', function () {
 
   describe('comprehensions', function () {
 
+  })
+
+  describe('async', function () {
+    var code = fixture('async')
+    var ecstacy = Ecstacy.js({
+      name: 'async',
+      code: code,
+      transforms: true,
+    })
+    var data
+
+    it('.build()', function () {
+      return ecstacy.build().then(function (data) {
+        return ecstacy.read(data.code, 'utf8')
+      }).then(function (js) {
+        assert(~js.indexOf('regeneratorRuntime'))
+        assert(!~js.indexOf('asyncFnRuntime'))
+      })
+    })
+
+    it('.build(ff30)', function () {
+      return ecstacy.build(ff30mobile).then(function (data) {
+        return ecstacy.read(data.code, 'utf8')
+      }).then(function (js) {
+        assert(~js.indexOf('asyncFnRuntime'))
+      })
+    })
   })
 })
 
