@@ -1,4 +1,4 @@
 
-export default async function (a) {
+async function fn(a) {
   return await a
 }

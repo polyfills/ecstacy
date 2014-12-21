@@ -281,6 +281,23 @@ describe('Ecstacy.js Features', function () {
       })
     })
   })
+
+  describe('esprima', function () {
+    it('should parse modules', function () {
+      var code = fixture('module')
+      var ecstacy = Ecstacy.js({
+        name: 'module',
+        code: code,
+        transforms: true,
+      })
+
+      return ecstacy.build().then(function (data) {
+        return ecstacy.read(data.code, 'utf8')
+      }).then(function (js) {
+        assert(/^export default /.test(js.trim()))
+      })
+    })
+  })
 })
 
 function fixture(name) {
