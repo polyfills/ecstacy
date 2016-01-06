@@ -44,7 +44,7 @@
     "postcss-color-rebeccapurple": "1",
     "postcss-custom-media": "1",
     "postcss-custom-properties": "2",
-    "recast": "0",
+    "recast": "0.10.41",
     "regenerator": "0",
     "regexpu": "0",
     "rimraf": "2"
