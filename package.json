@@ -36,7 +36,7 @@
     "native-or-bluebird": "1",
     "polyfills-db": "^3.0.0",
     "postcss": "3",
-    "postcss-calc": "3",
+    "postcss-calc": "5.1.0",
     "postcss-color": "1",
     "postcss-color-function": "1",
     "postcss-color-hex-alpha": "1",
