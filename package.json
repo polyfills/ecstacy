@@ -46,7 +46,7 @@
     "postcss-custom-properties": "2",
     "recast": "0",
     "regenerator": "0",
-    "regexpu": "0",
+    "regexpu": "2.0.1",
     "rimraf": "2"
   },
   "devDependencies": {
