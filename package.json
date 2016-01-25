@@ -47,7 +47,7 @@
     "recast": "0",
     "regenerator": "0",
     "regexpu": "0",
-    "rimraf": "2"
+    "rimraf": "2.5.1"
   },
   "devDependencies": {
     "bluebird": "2",
